@@ -1,89 +1,68 @@
 import axios from "axios";
 import { useState, useEffect } from "react";
-import { Container } from "./style.js";
-const api = axios.create({
-  baseURL: "http://localhost:3000",
-});
 
+// const api = axios.create({
+//   baseURL: "https://crm.rdstation.com/api/v1/",
+// });
+const TOKEN = "63adc786e164e0000b296295";
 function Index() {
-  const [users, setUsers] = useState([]);
-  const [depoiment, setDepoiment] = useState("");
-  const [name, setName] = useState("");
+  axios.defaults.headers.common["Authorization"] = `basic ${TOKEN}`;
 
-  useEffect(() => {
-    api.get("/users").then((response) => {
-      setUsers(response.data);
-    });
-  }, []);
-  function newUser() {
-    // eslint-disable-next-line eqeqeq
-    if (name == "" || depoiment == "") {
-      console.log("oi");
-    } else {
-      api.post("/users", { name, depoiment }).then(() => {
-        window.location.reload(true);
-      });
-    }
-  }
-  function delUser(id) {
-    api.delete(`/users/${id}`).then((response) => {
-      setUsers(response.data);
-    });
-  }
+  axios
+    .get(
+      "https://crm.rdstation.com/api/v1/deals?token=63adc786e164e0000b296295&Parametros"
+    )
+    .then((response) => console.log(response))
+    .catch((error) => console.log(error));
 
+  // const [posts, setPosts] = useState([]);
+  // const token = "63adc786e164e0000b296295";
+  // const getPosts = async () => {
+  //   try {
+  //     const response = await api.get(
+  //       "/deals?token=63adc786e164e0000b296295&Parametros"
+  //     );
+  //     sessionStorage.setItem("token", response.data.access_token);
+  //     console.log(response.data);
+  //   } catch (error) {}
+  // };
+
+  // useEffect(() => {
+  //   getPosts();
+  // }, []);
   return (
-    <Container>
-      <h1 className="depoimentTittle">Depoimentos</h1>
-      <div className="mainContainerAboutContainer">
-        <div className="containerDepoiments">
-          {Array.isArray(users)
-            ? users.map((user, index) => (
-                <div className="boxDepoiment" key={index}>
-                  <div className="allContentContainer">
-                    <p className="depoiment">"{user.depoiment} "</p>
-                    <p className="name">{user.name}</p>
-                    <button
-                      className="buttonDeleteUser"
-                      onClick={() => delUser(user._id)}
-                    >
-                      Delete User
-                    </button>
-                  </div>
-                </div>
-              ))
-            : window.location.reload(true)}
-        </div>
-      </div>
-
-      <h1 className="depoimentTittle">Adicione um depoimento</h1>
-      <div className="putContainer">
-        <form className="formContainer">
-          <div className="containerText">
-            <label className="label">Digite seu depoimento: </label>
-            <textArea
-              className="inputText"
-              rows="5"
-              cols="33"
-              maxlenght="200"
-              required
-              onChange={(event) => setDepoiment(event.target.value)}
-            />
-          </div>
-          <div className="containerText">
-            <label className="label">Gostaria de colocar seu nome? </label>
-            <input
-              type="text"
-              required
-              onChange={(event) => setName(event.target.value)}
-            />
-          </div>
-          <button className=" buttonDeleteUser" onClick={newUser}>
-            Submit
-          </button>
-        </form>
-      </div>
-    </Container>
+    <>
+      <p></p>
+    </>
   );
 }
 
 export default Index;
+
+// {
+// 		"token": "63adc786e164e0000b296295",
+// 			"name": "Tiago Santos",
+// 			"markup": "future",
+// 			"organization": {
+// 				"name": "Tiago Santos",
+// 				"user": {
+// 					"name": "Kelen Michele",
+// 					"email": "kelly-michele15@hotmail.com"
+// 				},
+// 				"organization_segments": []
+// 			},
+// 			"contacts": [
+// 				{
+// 					"name": "Tiago Santos",
+// 					"emails": [],
+// 					"phones": [
+// 						{
+// 							"phone": "11995350039",
+// 							"type": "work"
+// 						}
+// 					]
+// 				}
+// 			],
+// 			"deal_custom_fields": [],
+// 			"deal_products": []
+// 		}
