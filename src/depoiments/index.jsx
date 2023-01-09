@@ -1,35 +1,20 @@
 import axios from "axios";
 import { useState, useEffect } from "react";
 
-// const api = axios.create({
-//   baseURL: "https://crm.rdstation.com/api/v1/",
-// });
-const TOKEN = "63adc786e164e0000b296295";
 function Index() {
-  axios.defaults.headers.common["Authorization"] = `basic ${TOKEN}`;
+  var config = {
+    method: "get",
+    url: "https://crm.rdstation.com/api/v1/deals?token=62c34f1b64426500206f8cdd",
+    headers: {},
+  };
 
-  axios
-    .get(
-      "https://crm.rdstation.com/api/v1/deals?token=63adc786e164e0000b296295&Parametros"
-    )
-    .then((response) => console.log(response))
-    .catch((error) => console.log(error));
-
-  // const [posts, setPosts] = useState([]);
-  // const token = "63adc786e164e0000b296295";
-  // const getPosts = async () => {
-  //   try {
-  //     const response = await api.get(
-  //       "/deals?token=63adc786e164e0000b296295&Parametros"
-  //     );
-  //     sessionStorage.setItem("token", response.data.access_token);
-  //     console.log(response.data);
-  //   } catch (error) {}
-  // };
-
-  // useEffect(() => {
-  //   getPosts();
-  // }, []);
+  axios(config)
+    .then(function (response) {
+      console.log(JSON.stringify(response.data));
+    })
+    .catch(function (error) {
+      console.log(error);
+    });
   return (
     <>
       <p></p>
