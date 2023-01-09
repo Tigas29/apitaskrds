@@ -5,7 +5,10 @@ function Index() {
   var config = {
     method: "get",
     url: "https://crm.rdstation.com/api/v1/deals?token=62c34f1b64426500206f8cdd",
-    headers: {},
+    headers: {
+      Referer: "https://crm.rdstation.com",
+      "Referrer-Policy": "strict-origin-when-cross-origin",
+    },
   };
 
   axios(config)
